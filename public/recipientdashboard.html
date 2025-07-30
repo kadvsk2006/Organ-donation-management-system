@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipient Dashboard - OrganLife</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>OrganLife</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <div class="user-info">
+                        <div class="user-avatar recipient">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h1>Welcome, <span id="userName">Patient</span>!</h1>
+                            <p>We're working to find you the perfect match</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="showRequestModal()">
+                            <i class="fas fa-plus"></i>
+                            New Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon secondary">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalRequests">0</h3>
+                        <p>Total Requests</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon success">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="matchedRequests">0</h3>
+                        <p>Matched</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="pendingRequests">0</h3>
+                        <p>Pending Approval</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon primary">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="approvedRequests">0</h3>
+                        <p>Approved</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- My Requests Section -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-list-alt"></i> My Organ Requests</h2>
+                        <div class="section-actions">
+                            <select id="statusFilter" class="filter-select">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="matched">Matched</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="requests-grid" id="requestsContainer">
+                        <!-- Requests will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Available Donors Section -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-search"></i> Potential Matches</h2>
+                        <p class="section-description">Based on your approved requests</p>
+                    </div>
+                    <div class="matches-container" id="matchesContainer">
+                        <!-- Potential matches will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-user-cog"></i> Profile Information</h2>
+                        <button class="btn btn-outline" onclick="editProfile()">
+                            <i class="fas fa-edit"></i>
+                            Edit Profile
+                        </button>
+                    </div>
+                    <div class="profile-card">
+                        <div class="profile-info">
+                            <div class="info-group">
+                                <label>Full Name</label>
+                                <span id="profileName">Loading...</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Email</label>
+                                <span id="profileEmail">Loading...</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Phone</label>
+                                <span id="profilePhone">Loading...</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Member Since</label>
+                                <span id="profileJoined">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- New Request Modal -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-medical"></i> Submit New Organ Request</h3>
+                <button class="modal-close" onclick="closeRequestModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="requestForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="organType">Organ Type Needed</label>
+                        <select id="organType" name="organType" required>
+                            <option value="">Select organ type</option>
+                            <option value="kidney">Kidney</option>
+                            <option value="liver">Liver</option>
+                            <option value="heart">Heart</option>
+                            <option value="lungs">Lungs</option>
+                            <option value="pancreas">Pancreas</option>
+                            <option value="cornea">Cornea</option>
+                            <option value="bone">Bone</option>
+                            <option value="skin">Skin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloodGroup">Blood Group</label>
+                        <select id="bloodGroup" name="bloodGroup" required>
+                            <option value="">Select blood group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="urgency">Urgency Level</label>
+                    <select id="urgency" name="urgency" required>
+                        <option value="">Select urgency</option>
+                        <option value="critical">Critical (Life-threatening)</option>
+                        <option value="urgent">Urgent (Within 6 months)</option>
+                        <option value="moderate">Moderate (Within 1 year)</option>
+                        <option value="low">Low (When available)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Medical Reason</label>
+                    <textarea id="reason" name="reason" placeholder="Please describe your medical condition and why you need this organ..." rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hospital">Preferred Hospital</label>
+                    <input type="text" id="hospital" name="hospital" placeholder="Enter your preferred hospital">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeRequestModal()">Cancel</button>
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart"></i>
+                        <span>OrganLife</span>
+                    </div>
+                    <p>Connecting lives through the gift of organ donation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency</h4>
+                    <p class="emergency-number">+1 (555) 123-ORGAN</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OrganLife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

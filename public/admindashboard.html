@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - OrganLife</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar admin-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>OrganLife Admin</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#overview" class="nav-link active">Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#requests" class="nav-link">Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#matches" class="nav-link">Matches</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#analytics" class="nav-link">Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <main class="admin-dashboard">
+        <div class="admin-container">
+            <!-- Dashboard Header -->
+            <div class="admin-header">
+                <div class="header-content">
+                    <div class="admin-info">
+                        <div class="admin-avatar">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="admin-details">
+                            <h1>Admin Dashboard</h1>
+                            <p>Manage organ donations and save lives</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-admin" onclick="refreshData()">
+                            <i class="fas fa-sync"></i>
+                            Refresh Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overview Section -->
+            <section id="overview" class="admin-section active">
+                <h2>System Overview</h2>
+                
+                <!-- Key Metrics -->
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalDonors">0</h3>
+                            <p>Registered Donors</p>
+                            <span class="stat-change positive">+12 this week</span>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon secondary">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalRecipients">0</h3>
+                            <p>Registered Recipients</p>
+                            <span class="stat-change positive">+8 this week</span>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalMatches">0</h3>
+                            <p>Successful Matches</p>
+                            <span class="stat-change positive">+5 this week</span>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="pendingActions">0</h3>
+                            <p>Pending Actions</p>
+                            <span class="stat-change">Requires attention</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="admin-grid">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-line"></i> Quick Analytics</h3>
+                        </div>
+                        <div class="analytics-summary">
+                            <div class="summary-item">
+                                <span class="label">Organ Requests by Type:</span>
+                                <div class="organ-breakdown" id="organBreakdown">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Success Rate:</span>
+                                <div class="success-rate">
+                                    <div class="rate-bar">
+                                        <div class="rate-fill" style="width: 85%"></div>
+                                    </div>
+                                    <span class="rate-text">85%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bell"></i> Recent Activity</h3>
+                        </div>
+                        <div class="activity-feed" id="activityFeed">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Requests Section -->
+            <section id="requests" class="admin-section">
+                <div class="section-header">
+                    <h2>Organ Requests Management</h2>
+                    <div class="section-filters">
+                        <select id="requestStatusFilter" class="filter-select">
+                            <option value="all">All Requests</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <select id="requestOrganFilter" class="filter-select">
+                            <option value="all">All Organs</option>
+                            <option value="kidney">Kidney</option>
+                            <option value="liver">Liver</option>
+                            <option value="heart">Heart</option>
+                            <option value="lungs">Lungs</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="requests-table-container">
+                    <table class="admin-table" id="requestsTable">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Organ</th>
+                                <th>Blood Group</th>
+                                <th>Urgency</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsTableBody">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Matches Section (SINGLE, CORRECTED VERSION) -->
+            <section id="matches" class="admin-section">
+                <div class="section-header">
+                    <h2>Potential Matches</h2>
+                    <p class="section-description">AI-suggested donor-recipient matches based on compatibility</p>
+                    <button class="btn btn-secondary" onclick="refreshData()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+                
+                <div class="matches-container" id="matchesContainer">
+                    <!-- Matches will be populated here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="admin-section">
+                <h2>Detailed Analytics</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-pie"></i> Organ Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-pie"></i>
+                                <p>Organ distribution chart will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-bar"></i> Monthly Trends</h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-bar"></i>
+                                <p>Monthly trends chart will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-map-marked-alt"></i> Geographic Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Geographic distribution map will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Request Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-medical"></i> Review Organ Request</h3>
+                <button class="modal-close" onclick="closeReviewModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="reviewModalBody">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-danger" onclick="rejectRequest()">
+                    <i class="fas fa-times"></i>
+                    Reject
+                </button>
+                <button type="button" class="btn btn-success" onclick="approveRequest()">
+                    <i class="fas fa-check"></i>
+                    Approve
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer admin-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart"></i>
+                        <span>OrganLife Admin</span>
+                    </div>
+                    <p>Administrator portal for managing organ donations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>System Status</h4>
+                    <div class="status-indicators">
+                        <div class="status-item">
+                            <div class="status-dot online"></div>
+                            <span>Database: Online</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-dot online"></div>
+                            <span>Matching System: Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OrganLife Admin Panel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

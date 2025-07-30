@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Portal - OrganLife</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>OrganLife</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">
+                        Login/Register <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="donor.html" class="dropdown-item active">
+                            <i class="fas fa-user-plus"></i> Donor
+                        </a>
+                        <a href="recipient.html" class="dropdown-item">
+                            <i class="fas fa-user-friends"></i> Recipient
+                        </a>
+                        <a href="admin.html" class="dropdown-item">
+                            <i class="fas fa-user-shield"></i> Admin
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="auth-main">
+        <div class="auth-container">
+            <div class="auth-content">
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h1>Donor Portal</h1>
+                    <p>Be a hero. Save lives through organ donation.</p>
+                </div>
+
+                <!-- Login Form -->
+                <div class="auth-form-container" id="loginForm">
+                    <div class="form-header">
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to your donor account</p>
+                    </div>
+                    <form id="donorLoginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </button>
+                    </form>
+                    <div class="auth-switch">
+                        <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a></p>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <div class="auth-form-container hidden" id="registerForm">
+                    <div class="form-header">
+                        <h2>Join as a Donor</h2>
+                        <p>Create your account to start saving lives</p>
+                    </div>
+                    <form id="donorRegisterForm" class="auth-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registerName">Full Name</label>
+                                <div class="input-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="registerName" name="name" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="registerEmail">Email Address</label>
+                                <div class="input-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="registerEmail" name="email" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registerPhone">Phone Number</label>
+                                <div class="input-group">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="tel" id="registerPhone" name="phone" placeholder="Enter your phone number" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="registerAge">Age</label>
+                                <div class="input-group">
+                                    <i class="fas fa-calendar"></i>
+                                    <input type="number" id="registerAge" name="age" placeholder="Your age" min="18" max="65" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="registerPassword" name="password" placeholder="Create a strong password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="termsAccept" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="medicalConsent" required>
+                                <span class="checkmark"></span>
+                                I consent to medical evaluation and organ donation procedures
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width">
+                            <i class="fas fa-user-plus"></i>
+                            Create Donor Account
+                        </button>
+                    </form>
+                    <div class="auth-switch">
+                        <p>Already have an account? <a href="#" onclick="showLoginForm()">Sign in here</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div class="auth-side">
+                <div class="side-content">
+                    <div class="side-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Make a Difference</h3>
+                    <p>One organ donor can save up to 8 lives and improve the lives of more than 75 people through tissue donation.</p>
+                    <div class="side-stats">
+                        <div class="side-stat">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Lives Saved</div>
+                        </div>
+                        <div class="side-stat">
+                            <div class="stat-number">75+</div>
+                            <div class="stat-label">Lives Improved</div>
+                        </div>
+                    </div>
+                    <div class="side-testimonial">
+                        <p>"Becoming a donor was the most meaningful decision I ever made. Knowing I can help save lives gives me incredible purpose."</p>
+                        <cite>- Sarah M., Registered Donor</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart"></i>
+                        <span>OrganLife</span>
+                    </div>
+                    <p>Connecting lives through the gift of organ donation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="recipient.html">Request Organ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency</h4>
+                    <p class="emergency-number">+1 (555) 123-ORGAN</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OrganLife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
