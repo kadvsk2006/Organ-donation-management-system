@@ -1,143 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Portal - OrganLife</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Portal - OrganLife</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-heart"></i>
-                <span>OrganLife</span>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-heart"></i>
+        <span>OrganLife</span>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="index.html#about" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle active">
+            Login/Register <i class="fas fa-chevron-down"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="donor.html" class="dropdown-item"><i class="fas fa-user-plus"></i> Donor</a>
+            <a href="recipient.html" class="dropdown-item"><i class="fas fa-user-friends"></i> Recipient</a>
+            <a href="admin.html" class="dropdown-item active"><i class="fas fa-user-shield"></i> Admin</a>
+          </div>
+        </li>
+      </ul>
+      <div class="nav-toggle">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="auth-main admin-main">
+    <div class="admin-login-container">
+      <div class="admin-login-card">
+        <div class="admin-header">
+          <div class="admin-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h1>Admin Access</h1>
+          <p>Secure portal for OrganLife administrators</p>
+        </div>
+
+        <div class="admin-content-wrapper">
+          <!-- Left: Login Form -->
+          <form id="adminLoginForm" class="admin-form">
+            <div class="form-group">
+              <label for="adminEmail">Administrator Email</label>
+              <div class="input-group">
+                <i class="fas fa-user-shield"></i>
+                <input type="email" id="adminEmail" name="email" placeholder="Enter admin email" required />
+              </div>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html#about" class="nav-link">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html#contact" class="nav-link">Contact Us</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active">
-                        Login/Register <i class="fas fa-chevron-down"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="donor.html" class="dropdown-item">
-                            <i class="fas fa-user-plus"></i> Donor
-                        </a>
-                        <a href="recipient.html" class="dropdown-item">
-                            <i class="fas fa-user-friends"></i> Recipient
-                        </a>
-                        <a href="admin.html" class="dropdown-item active">
-                            <i class="fas fa-user-shield"></i> Admin
-                        </a>
-                    </div>
-                </li>
+            <div class="form-group">
+              <label for="adminPassword">Password</label>
+              <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="adminPassword" name="password" placeholder="Enter admin password" required />
+                <button type="button" class="password-toggle" onclick="togglePassword('adminPassword')">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="adminCode">Security Code</label>
+              <div class="input-group">
+                <i class="fas fa-key"></i>
+                <input type="text" id="adminCode" name="securityCode" placeholder="Enter security code" required />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-admin full-width">
+              <i class="fas fa-sign-in-alt"></i>
+              Access Admin Panel
+            </button>
+          </form>
+
+          <!-- Right: Credentials Info -->
+          <div class="admin-info-box">
+            <h3>🔒 For Faculty & Reviewers</h3>
+            <p><strong>Use these credentials to log in as Admin:</strong></p>
+            <ul>
+              <li><b>Email:</b> admin@organlife.com</li>
+              <li><b>Password:</b> admin123</li>
+              <li><b>Security Code:</b> ORGAN2024</li>
             </ul>
-            <div class="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <div class="note-footer">Demo only — for project review at OrganLife internship.</div>
+          </div>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <main class="auth-main admin-main">
-        <div class="admin-login-container">
-            <div class="admin-login-card">
-                <div class="admin-header">
-                    <div class="admin-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h1>Admin Access</h1>
-                    <p>Secure portal for OrganLife administrators</p>
-                </div>
-
-                <form id="adminLoginForm" class="admin-form">
-                    <div class="form-group">
-                        <label for="adminEmail">Administrator Email</label>
-                        <div class="input-group">
-                            <i class="fas fa-user-shield"></i>
-                            <input type="email" id="adminEmail" name="email" placeholder="Enter admin email" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="adminPassword">Password</label>
-                        <div class="input-group">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="adminPassword" name="password" placeholder="Enter admin password" required>
-                            <button type="button" class="password-toggle" onclick="togglePassword('adminPassword')">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="adminCode">Security Code</label>
-                        <div class="input-group">
-                            <i class="fas fa-key"></i>
-                            <input type="text" id="adminCode" name="securityCode" placeholder="Enter security code" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-admin full-width">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Access Admin Panel
-                    </button>
-                </form>
-
-                <div class="admin-security">
-                    <div class="security-notice">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Security Notice:</strong> This is a restricted area. All access attempts are logged and monitored.</p>
-                    </div>
-                    <div class="admin-features">
-                        <h4>Admin Capabilities:</h4>
-                        <ul>
-                            <li><i class="fas fa-check"></i> Approve/Reject organ requests</li>
-                            <li><i class="fas fa-check"></i> Manage donor-recipient matching</li>
-                            <li><i class="fas fa-check"></i> View comprehensive analytics</li>
-                            <li><i class="fas fa-check"></i> Monitor system activity</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="admin-security">
+          <div class="security-notice">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p><strong>Security Notice:</strong> This is a restricted area. All access attempts are logged and monitored.</p>
+          </div>
+          <div class="admin-features">
+            <h4>Admin Capabilities:</h4>
+            <ul>
+              <li><i class="fas fa-check"></i> Approve/Reject organ requests</li>
+              <li><i class="fas fa-check"></i> Manage donor-recipient matching</li>
+              <li><i class="fas fa-check"></i> View comprehensive analytics</li>
+              <li><i class="fas fa-check"></i> Monitor system activity</li>
+            </ul>
+          </div>
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <i class="fas fa-heart"></i>
-                        <span>OrganLife</span>
-                    </div>
-                    <p>Connecting lives through the gift of organ donation.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Emergency</h4>
-                    <p class="emergency-number">+1 (555) 123-ORGAN</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 OrganLife. All rights reserved.</p>
-            </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <i class="fas fa-heart"></i>
+            <span>OrganLife</span>
+          </div>
+          <p>Connecting lives through the gift of organ donation.</p>
         </div>
-    </footer>
+        <div class="footer-section">
+          <h4>Emergency</h4>
+          <p class="emergency-number">9500524478848</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 OrganLife. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-    <!-- Toast Notification Container -->
-    <div id="toastContainer" class="toast-container"></div>
-
-    <script src="script.js"></script>
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="script.js"></script>
 </body>
 </html>
+
